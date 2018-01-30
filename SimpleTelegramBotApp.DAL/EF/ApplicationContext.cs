@@ -6,18 +6,24 @@ namespace SimpleTelegramBotApp.DAL.EF
 {
     public class ApplicationContext : DbContext
     {
-        private IDatabaseConnectionConfiguration _connectionConfiguration;
+        private IConnectionStringsConfiguration _connectionConfiguration;
 
         public DbSet<Translation> Translations { get; set; }
 
-        public ApplicationContext(IDatabaseConnectionConfiguration connectionConfiguration)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options)
+            : base(options)
+        {
+        }
+
+        public ApplicationContext(IConnectionStringsConfiguration connectionConfiguration)
         {
             _connectionConfiguration = connectionConfiguration;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(_connectionConfiguration.ConnectionString);
+            if (_connectionConfiguration != null)
+                optionsBuilder.UseSqlite(_connectionConfiguration.DefaultConnection);
         }
     }
 }

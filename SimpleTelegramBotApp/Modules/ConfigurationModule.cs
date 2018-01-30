@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.IO;
 using Autofac;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using SimpleTelegramBotApp.BLL.Configuration;
 using SimpleTelegramBotApp.DAL.Configuration;
+using SimpleTelegramBotApp.DAL.EF;
 
 namespace DiplomaManager.Modules
 {
@@ -11,18 +14,18 @@ namespace DiplomaManager.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(CreateDatabaseConnectionConfiguration).SingleInstance();
+            builder.Register(CreateConnectionStringsConfiguration).SingleInstance();
             builder.Register(CreateTranslationConfiguration).SingleInstance();
             builder.Register(CreateBotConfiguration).SingleInstance();
         }
 
-        private static IDatabaseConnectionConfiguration CreateDatabaseConnectionConfiguration(IComponentContext context)
+        private static IConnectionStringsConfiguration CreateConnectionStringsConfiguration(IComponentContext context)
         {
             var configuration = context.Resolve<IConfiguration>();
 
-            var result = new DatabaseConnectionConfiguration();
+            var result = new ConnectionStringsConfiguration();
 
-            new ConfigureFromConfigurationOptions<DatabaseConnectionConfiguration>(configuration.GetSection("Data"))
+            new ConfigureFromConfigurationOptions<ConnectionStringsConfiguration>(configuration.GetSection("ConnectionStrings"))
                 .Configure(result);
 
             return result;
@@ -54,9 +57,9 @@ namespace DiplomaManager.Modules
 
         #region Nested Class
 
-        public class DatabaseConnectionConfiguration : IDatabaseConnectionConfiguration
+        public class ConnectionStringsConfiguration : IConnectionStringsConfiguration
         {
-            public string ConnectionString { get; set; }
+            public string DefaultConnection { get; set; }
         }
 
         public class TranslationConfiguration : ITranslationConfiguration

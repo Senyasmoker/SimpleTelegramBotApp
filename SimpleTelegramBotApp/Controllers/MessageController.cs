@@ -7,9 +7,9 @@ namespace SimpleTelegramBotApp.Controllers
 {
     public class MessageController : Controller
     {
-        private IBotService BotService { get; }
+        private ITranslationBotService BotService { get; }
 
-        public MessageController(IBotService botService)
+        public MessageController(ITranslationBotService botService)
         {
             BotService = botService;
         }
@@ -17,9 +17,8 @@ namespace SimpleTelegramBotApp.Controllers
         [Route(@"api/message/update")]
         public async Task<OkResult> Update([FromBody]Update update)
         {
-            var message = update.Message;
-            var client = await BotService.GetAsync();
-
+            await BotService.ProcessMessageAsync(update.Message);
+            
             return Ok();
         }
     }

@@ -9,4 +9,8 @@
     <PackageReference Include="Telegram.Bot" Version="13.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleTelegramBotApp.DAL\SimpleTelegramBotApp.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

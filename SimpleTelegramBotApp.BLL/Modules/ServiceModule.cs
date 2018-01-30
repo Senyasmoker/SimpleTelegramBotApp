@@ -8,7 +8,7 @@ namespace DiplomaManager.BLL.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<BotService>().As<IBotService>();
+            builder.RegisterType<TranslationBotService>().As<ITranslationBotService>();
         }
     }
 }

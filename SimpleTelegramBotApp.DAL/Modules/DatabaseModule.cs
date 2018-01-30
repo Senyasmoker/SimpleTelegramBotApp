@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using GuessNumberWebApp.DAL.EF;
+using SimpleTelegramBotApp.DAL.EF;
 
-namespace DiplomaManager.DAL.Modules
+namespace SimpleTelegramBotApp.DAL.Modules
 {
     public class DatabaseModule : Module
     {

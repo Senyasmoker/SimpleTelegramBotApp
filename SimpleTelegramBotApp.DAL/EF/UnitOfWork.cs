@@ -1,9 +1,8 @@
-﻿using SimpleTelegramBotApp.DAL.EF;
-using SimpleTelegramBotApp.DAL.Entities;
+﻿using SimpleTelegramBotApp.DAL.Entities;
 using SimpleTelegramBotApp.DAL.Interfaces;
 using System;
 
-namespace GuessNumberWebApp.DAL.EF
+namespace SimpleTelegramBotApp.DAL.EF
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {

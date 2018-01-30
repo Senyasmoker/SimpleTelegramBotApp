@@ -1,7 +1,7 @@
 ﻿using SimpleTelegramBotApp.DAL.Entities;
 using SimpleTelegramBotApp.DAL.Interfaces;
 
-namespace GuessNumberWebApp.DAL.EF
+namespace SimpleTelegramBotApp.DAL.EF
 {
     public interface IUnitOfWork
     {
