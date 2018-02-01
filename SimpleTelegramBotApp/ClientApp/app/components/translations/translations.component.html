@@ -1,0 +1,84 @@
+﻿<h1>Translations</h1>
+<h4 *ngIf="translations && tableMode">Count: {{translations.length}}</h4>
+<input type="button" *ngIf="tableMode" value="Add" class="btn btn-default" (click)="add()" />
+<table *ngIf="tableMode; else create" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Source Text</th>
+            <th>Translated Text</th>
+            <th>From</th>
+            <th>To</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let t of translations">
+            <ng-template [ngIf]="translation?.id != t.id" [ngIfElse]="edit">
+                <td>{{t?.sourceText}}</td>
+                <td>{{t?.translatedText}}</td>
+                <td class="fit">{{t.from}}</td>
+                <td class="fit">{{t.to}}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" (click)="editTranslation(t)">Edit</button>
+                    <button class="btn btn-sm btn-danger" (click)="delete(t)">Delete</button>
+                </td>
+            </ng-template>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #edit>
+    <td>
+        <textarea #sourceText="ngModel" required [(ngModel)]="translation.sourceText" class="form-control"></textarea>
+    </td>
+    <td>
+        <textarea #translatedText="ngModel" required [(ngModel)]="translation.translatedText" class="form-control"></textarea>
+    </td>
+    <td class="fit">{{translation.from}}</td>
+    <td class="fit">{{translation.to}}</td>
+    <td>
+        <input type="button" value="Save" (click)="save()" class="btn btn-sm btn-success" [disabled]="!sourceText.valid || !translatedText.valid" />
+        <input type="button" value="Cancel" (click)="cancel()" class="btn btn-sm btn-warning" />
+    </td>
+</ng-template>
+
+<ng-template #create>
+    <form #f="ngForm" novalidate>
+        <div class="form-group">
+            <label>Source Text</label>
+            <textarea name="sourceText" #sourceText="ngModel" required [(ngModel)]="translation.sourceText" class="form-control"></textarea>
+
+            <small [hidden]="sourceText.valid || (sourceText.pristine && !submitted)" class="text-danger">
+                Please enter a valid source text
+            </small>
+        </div>
+        <div class="form-group">
+            <label>Traslated Text</label>
+            <textarea name="translatedText" #translatedText="ngModel" required [(ngModel)]="translation.translatedText" class="form-control"></textarea>
+
+            <small [hidden]="translatedText.valid || (translatedText.pristine && !submitted)" class="text-danger">
+                Please enter a valid translated text
+            </small>
+        </div>
+        <div class="form-group">
+            <label>From</label>
+            <input type="text" name="from" #from="ngModel" required disabled [(ngModel)]="translation.from" class="form-control" />
+
+            <small [hidden]="from.valid || (from.pristine && !submitted)" class="text-danger">
+                Please enter a valid from language
+            </small>
+        </div>
+        <div class="form-group">
+            <label>To</label>
+            <input type="text" name="to" #to="ngModel" required disabled [(ngModel)]="translation.to" class="form-control" />
+
+            <small [hidden]="to.valid || (to.pristine && !submitted)" class="text-danger">
+                Please enter a valid to language
+            </small>
+        </div>
+        <div>
+            <input type="button" value="Save" (click)="save()" class="btn btn-success" [disabled]="f.invalid" />
+            <input type="button" value="Cancel" (click)="cancel()" class="btn btn-warning" />
+        </div>
+    </form>
+</ng-template>

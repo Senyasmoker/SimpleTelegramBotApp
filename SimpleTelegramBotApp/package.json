@@ -24,7 +24,7 @@
     "angular2-router-loader": "0.3.5",
     "angular2-template-loader": "0.6.2",
     "aspnet-prerendering": "^3.0.1",
-    "aspnet-webpack": "^2.0.1",
+    "aspnet-webpack": "^2.0.3",
     "awesome-typescript-loader": "3.2.1",
     "bootstrap": "3.3.7",
     "chai": "4.0.2",
@@ -58,5 +58,8 @@
     "webpack-hot-middleware": "2.18.2",
     "webpack-merge": "4.1.0",
     "zone.js": "0.8.12"
+  },
+  "dependencies": {
+    "ngx-toastr": "^8.1.1"
   }
 }

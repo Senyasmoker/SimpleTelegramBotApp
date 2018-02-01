@@ -7,6 +7,7 @@ namespace SimpleTelegramBotApp.DAL.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<ApplicationContext>();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
         }
     }

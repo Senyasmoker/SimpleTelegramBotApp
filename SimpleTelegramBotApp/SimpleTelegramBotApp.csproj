@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\app\models\translate.model.ts" />
+    <None Remove="ClientApp\app\models\translation.model.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\models\translate.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\translation.model.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

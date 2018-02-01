@@ -513,9 +513,9 @@
       }
     },
     "aspnet-webpack": {
-      "version": "2.0.1",
-      "resolved": "https://registry.npmjs.org/aspnet-webpack/-/aspnet-webpack-2.0.1.tgz",
-      "integrity": "sha1-TZyh3BIM5+LlzdX3nCrJgDuq7/s=",
+      "version": "2.0.3",
+      "resolved": "https://registry.npmjs.org/aspnet-webpack/-/aspnet-webpack-2.0.3.tgz",
+      "integrity": "sha512-TwutLcYQlLikMJ8mcv8D9KSr5BkkFbpQDY/LABj/dMwz6EAM9azqV9WfgrQ+1UPmycS6VVgQZhITmCmTOAiYtg==",
       "dev": true,
       "requires": {
         "connect": "3.6.2",
@@ -4391,6 +4391,11 @@
       "resolved": "https://registry.npmjs.org/negotiator/-/negotiator-0.6.1.tgz",
       "integrity": "sha1-KzJxhOiZIQEXeyhWP7XnECrNDKk=",
       "dev": true
+    },
+    "ngx-toastr": {
+      "version": "8.1.1",
+      "resolved": "https://registry.npmjs.org/ngx-toastr/-/ngx-toastr-8.1.1.tgz",
+      "integrity": "sha512-0CEnwlTnzU7rjaXNsgDng6tyLgLJ1YLGmAbudy1m/u6SIixHmRyJ3mBetTxjcj5XXstP3H5UjWTrH64WlAF4zQ=="
     },
     "no-case": {
       "version": "2.3.1",

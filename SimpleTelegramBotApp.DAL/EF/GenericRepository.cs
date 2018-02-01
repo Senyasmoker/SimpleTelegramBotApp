@@ -57,6 +57,17 @@ namespace SimpleTelegramBotApp.DAL.EF
             _context.SaveChanges();
         }
 
+        public void Remove(int id)
+        {
+            var item = _dbSet.Find(id);
+            if (item == null)
+            {
+                throw new InvalidOperationException("Item not found");
+            }
+            _dbSet.Remove(item);
+            _context.SaveChanges();
+        }
+
         public void Remove(TEntity item)
         {
             _dbSet.Remove(item);
