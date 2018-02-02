@@ -7,6 +7,8 @@ using Autofac.Extensions.DependencyInjection;
 using Autofac;
 using SimpleTelegramBotApp.Common.Autofac;
 using System;
+using SimpleTelegramBotApp.BLL.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace SimpleTelegramBotApp
 {
@@ -59,6 +61,20 @@ namespace SimpleTelegramBotApp
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+
+            StartBot();
+        }
+
+        private void StartBot()
+        {
+            using (var scope = ApplicationContainer.BeginLifetimeScope())
+            {
+                var service = scope.Resolve<ITranslationBotService>();
+                var logger = scope.Resolve<ILogger<Startup>>();
+
+                service.InitClient();
+                logger.LogInformation("Bot Client started");
+            }
         }
     }
 }

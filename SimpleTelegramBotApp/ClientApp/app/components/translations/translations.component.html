@@ -1,6 +1,9 @@
 ﻿<h1>Translations</h1>
 <h4 *ngIf="translations && tableMode">Count: {{translations.length}}</h4>
-<input type="button" *ngIf="tableMode" value="Add" class="btn btn-default" (click)="add()" />
+<div *ngIf="tableMode">
+    <input type="button" value="Refresh" class="btn btn-default" (click)="load()" />
+    <input type="button" value="Add" class="btn btn-default" (click)="add()" />
+</div>
 <table *ngIf="tableMode; else create" class="table table-striped">
     <thead>
         <tr>

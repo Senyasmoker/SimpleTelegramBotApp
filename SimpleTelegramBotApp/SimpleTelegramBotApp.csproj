@@ -11,6 +11,8 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.5.0-rc2" />
+    <PackageReference Include="NLog" Version="4.5.0-rc04" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +35,12 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\models\translation.model.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

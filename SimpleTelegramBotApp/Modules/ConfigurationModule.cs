@@ -1,12 +1,8 @@
-﻿using System.IO;
-using Autofac;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
+﻿using Autofac;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using SimpleTelegramBotApp.BLL.Configuration;
 using SimpleTelegramBotApp.DAL.Configuration;
-using SimpleTelegramBotApp.DAL.EF;
 
 namespace DiplomaManager.Modules
 {

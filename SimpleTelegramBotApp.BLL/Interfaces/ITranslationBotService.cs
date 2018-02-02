@@ -5,6 +5,8 @@ namespace SimpleTelegramBotApp.BLL.Interfaces
 {
     public interface ITranslationBotService
     {
+        Task InitClient();
+
         Task ProcessMessageAsync(Message message);
     }
 }

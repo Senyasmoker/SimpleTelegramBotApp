@@ -263,6 +263,7 @@ __pycache__/
 # wwwRoot
 */wwwroot/dist
 
-# DB
+# Others
 *.db
-/SimpleTelegramBotApp/Properties/PublishProfiles
+*/Properties/PublishProfiles
+*/logs

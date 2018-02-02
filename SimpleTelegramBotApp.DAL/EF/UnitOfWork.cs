@@ -1,4 +1,6 @@
-﻿using SimpleTelegramBotApp.DAL.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SimpleTelegramBotApp.DAL.Configuration;
+using SimpleTelegramBotApp.DAL.Entities;
 using SimpleTelegramBotApp.DAL.Interfaces;
 using System;
 
@@ -9,9 +11,10 @@ namespace SimpleTelegramBotApp.DAL.EF
         private ApplicationContext _db;
         private IGenericRepository<Translation> _translationsRepository;
 
-        public UnitOfWork(ApplicationContext applicationContext)
+        public UnitOfWork(IConnectionStringsConfiguration connectionStringsConfiguration)
         {
-            _db = applicationContext;
+            _db = new ApplicationContext(connectionStringsConfiguration);
+            _db.Database.EnsureCreated();
         }
 
         public IGenericRepository<Translation> TranslationsRepository

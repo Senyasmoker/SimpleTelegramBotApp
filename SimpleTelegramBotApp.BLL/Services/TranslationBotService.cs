@@ -23,6 +23,7 @@ namespace SimpleTelegramBotApp.BLL
             ITranslationService translationService)
         {
             _botConfiguration = botConfiguration;
+            UnitOfWork = unitOfWork;
             TranslationService = translationService;
         }
 
@@ -35,7 +36,7 @@ namespace SimpleTelegramBotApp.BLL
             await _client.SendTextMessageAsync(message.Chat.Id, translatedText);
         }
 
-        private async Task InitClient()
+        public async Task InitClient()
         {
             if (_client != null)
             {
@@ -43,7 +44,7 @@ namespace SimpleTelegramBotApp.BLL
             }
 
             _client = new TelegramBotClient(_botConfiguration.Key);
-            var hook = string.Format(_botConfiguration.Url, "api/message/update");
+            var hook = string.Concat(_botConfiguration.Url, "/api/message/update");
             await _client.SetWebhookAsync(hook);
         }
 
@@ -61,6 +62,8 @@ namespace SimpleTelegramBotApp.BLL
             else
             {
                 var translateResult = await TranslationService.Translate(text, lang);
+                var fromToResult = translateResult.Lang.Split('-');
+
                 if (translateResult?.Text.Any() != null)
                 {
                     translated = translateResult.Text.FirstOrDefault();
@@ -68,8 +71,8 @@ namespace SimpleTelegramBotApp.BLL
                     {
                         SourceText = text,
                         TranslatedText = translated,
-                        From = lang,
-                        To = translateResult.Lang
+                        From = fromToResult.FirstOrDefault() ?? "ru",
+                        To = fromToResult.Skip(1).FirstOrDefault() ?? "en"
                     });
                 }
             }
