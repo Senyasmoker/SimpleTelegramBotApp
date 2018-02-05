@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SimpleTelegramBotApp.BLL.DTOs;
 using SimpleTelegramBotApp.BLL.Interfaces;
-using SimpleTelegramBotApp.DAL.Entities;
 
 namespace SimpleTelegramBotApp.Controllers
 {
@@ -10,16 +9,16 @@ namespace SimpleTelegramBotApp.Controllers
     [Route("api/Translations")]
     public class TranslationsController : Controller
     {
-        private ICrudService<Translation> TranslationService { get; }
+        private ICrudService<TranslationDto> TranslationService { get; }
 
-        public TranslationsController(ICrudService<Translation> translationService)
+        public TranslationsController(ICrudService<TranslationDto> translationService)
         {
             TranslationService = translationService;
         }
 
         // GET: api/Translations
         [HttpGet]
-        public IEnumerable<Translation> GetTranslations()
+        public IEnumerable<TranslationDto> GetTranslations()
         {
             return TranslationService.Get();
         }
@@ -40,7 +39,7 @@ namespace SimpleTelegramBotApp.Controllers
 
         // PUT: api/Translations/5
         [HttpPut("{id}")]
-        public IActionResult PutTranslation([FromRoute] int id, [FromBody] Translation translation)
+        public IActionResult PutTranslation([FromRoute] int id, [FromBody] TranslationDto translation)
         {
             if (!ModelState.IsValid)
             {
@@ -54,7 +53,7 @@ namespace SimpleTelegramBotApp.Controllers
 
         // POST: api/Translations
         [HttpPost]
-        public IActionResult PostTranslation([FromBody] Translation translation)
+        public IActionResult PostTranslation([FromBody] TranslationDto translation)
         {
             if (!ModelState.IsValid)
             {

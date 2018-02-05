@@ -1,12 +1,13 @@
-﻿using SimpleTelegramBotApp.BLL.Interfaces;
+﻿using AutoMapper;
+using SimpleTelegramBotApp.BLL.DTOs;
+using SimpleTelegramBotApp.BLL.Interfaces;
 using SimpleTelegramBotApp.DAL.EF;
 using SimpleTelegramBotApp.DAL.Entities;
-using System;
 using System.Collections.Generic;
 
 namespace SimpleTelegramBotApp.BLL.Services
 {
-    public class TranslationsService : ICrudService<Translation>
+    public class TranslationsService : ICrudService<TranslationDto>
     {
         private IUnitOfWork _db;
 
@@ -15,9 +16,11 @@ namespace SimpleTelegramBotApp.BLL.Services
             _db = db;
         }
 
-        public void Create(Translation item)
+        public void Create(TranslationDto item)
         {
-            _db.TranslationsRepository.Create(item);
+            var translation = Mapper.Map<TranslationDto, Translation>(item);
+
+            _db.TranslationsRepository.Create(translation);
         }
 
         public void Delete(int id)
@@ -25,19 +28,25 @@ namespace SimpleTelegramBotApp.BLL.Services
             _db.TranslationsRepository.Remove(id);
         }
 
-        public IEnumerable<Translation> Get()
+        public IEnumerable<TranslationDto> Get()
         {
-            return _db.TranslationsRepository.Get();
+            var translations = _db.TranslationsRepository.Get();
+
+            return Mapper.Map<IEnumerable<Translation>, IEnumerable<TranslationDto>>(translations);
         }
 
-        public Translation Get(int id)
+        public TranslationDto Get(int id)
         {
-            return _db.TranslationsRepository.FindById(id);
+            var translation = _db.TranslationsRepository.FindById(id);
+
+            return Mapper.Map<Translation, TranslationDto>(translation);
         }
 
-        public void Update(Translation item)
+        public void Update(TranslationDto item)
         {
-            _db.TranslationsRepository.Update(item);
+            var translation = Mapper.Map<TranslationDto, Translation>(item);
+
+            _db.TranslationsRepository.Update(translation);
         }
     }
 }

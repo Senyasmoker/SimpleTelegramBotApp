@@ -3,7 +3,10 @@ using SimpleTelegramBotApp.BLL.Interfaces;
 using SimpleTelegramBotApp.DAL.EF;
 using SimpleTelegramBotApp.DAL.Entities;
 using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -50,9 +53,34 @@ namespace SimpleTelegramBotApp.BLL
 
         private async Task<string> GetTranslationAsync(string text, string lang)
         {
+            var separators = new[] { '.', '!', '?', ';' };
+            string[] parts = Regex.Split(text, $@"(?<=[{string.Join("", separators)}])");
+
+            var sb = new StringBuilder();
+            foreach (var part in parts)
+            {
+                if (string.IsNullOrWhiteSpace(part))
+                    continue;
+
+                if (!separators.Any(s => s.ToString() == part))
+                {
+                    var translatePart = await TranslatePartAsync(part, lang);
+                    sb.Append(translatePart);
+                }
+                else
+                {
+                    sb.Append(part);
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        private async Task<string> TranslatePartAsync(string text, string lang)
+        {
             string translated = string.Empty;
 
-            var repTranslations = UnitOfWork.TranslationsRepository.Get(t => 
+            var repTranslations = UnitOfWork.TranslationsRepository.Get(t =>
                 t.SourceText.IndexOf(text, 0, StringComparison.OrdinalIgnoreCase) != -1);
             if (repTranslations.Any())
             {
