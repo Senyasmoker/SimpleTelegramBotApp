@@ -79,8 +79,7 @@ namespace SimpleTelegramBotApp.BLL.Services
         {
             var translated = string.Empty;
 
-            var repTranslations = UnitOfWork.TranslationsRepository.Get(t =>
-                t.SourceText.IndexOf(text, 0, StringComparison.OrdinalIgnoreCase) != -1).ToList();
+            var repTranslations = UnitOfWork.TranslationsRepository.Get(t => t.SourceText.ToLower() == text.ToLower());
             if (repTranslations.Any())
             {
                 var translation = repTranslations.FirstOrDefault();
