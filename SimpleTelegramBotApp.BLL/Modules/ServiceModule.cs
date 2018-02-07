@@ -1,13 +1,11 @@
 ﻿using Autofac;
 using AutoMapper;
-using DiplomaManager.BLL.Services;
-using SimpleTelegramBotApp.BLL;
 using SimpleTelegramBotApp.BLL.DTOs;
 using SimpleTelegramBotApp.BLL.Interfaces;
 using SimpleTelegramBotApp.BLL.Services;
 using SimpleTelegramBotApp.DAL.Entities;
 
-namespace DiplomaManager.BLL.Modules
+namespace SimpleTelegramBotApp.BLL.Modules
 {
     public class ServiceModule : Module
     {

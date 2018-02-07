@@ -5,10 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Autofac.Extensions.DependencyInjection;
 using Autofac;
-using SimpleTelegramBotApp.Common.Autofac;
 using System;
 using SimpleTelegramBotApp.BLL.Interfaces;
 using Microsoft.Extensions.Logging;
+using SimpleTelegramBotApp.Autofac;
 
 namespace SimpleTelegramBotApp
 {

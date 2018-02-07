@@ -13,8 +13,6 @@ namespace SimpleTelegramBotApp.DAL.Interfaces
 
         IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
 
-        IEnumerable<TEntity> Get<TKey>(Func<TEntity, TKey> orderBy, bool isAsc = true, Func<TEntity, bool> predicate = null);
-
         void Remove(int id);
 
         void Remove(TEntity item);

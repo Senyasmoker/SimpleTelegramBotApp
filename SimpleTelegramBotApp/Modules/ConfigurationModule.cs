@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using SimpleTelegramBotApp.BLL.Configuration;
 using SimpleTelegramBotApp.DAL.Configuration;
 
-namespace DiplomaManager.Modules
+namespace SimpleTelegramBotApp.Modules
 {
     public class ConfigurationModule : Module
     {
@@ -53,21 +53,22 @@ namespace DiplomaManager.Modules
 
         #region Nested Class
 
-        public class ConnectionStringsConfiguration : IConnectionStringsConfiguration
+        private class ConnectionStringsConfiguration : IConnectionStringsConfiguration
         {
             public string DefaultConnection { get; set; }
         }
 
-        public class TranslationConfiguration : ITranslationConfiguration
+        private class TranslationConfiguration : ITranslationConfiguration
         {
             public string BaseUrl { get; set; }
             public string TranslateBaseApiPath { get; set; }
             public string ApiKey { get; set; }
         }
 
-        public class BotConfiguration : IBotConfiguration
+        private class BotConfiguration : IBotConfiguration
         {
             public string Url { get; set; }
+            public string UpdateBaseApiPath { get; set; }
             public string Name { get; set; }
             public string Key { get; set; }
         }

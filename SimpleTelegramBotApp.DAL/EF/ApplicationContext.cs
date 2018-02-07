@@ -6,11 +6,11 @@ namespace SimpleTelegramBotApp.DAL.EF
 {
     public class ApplicationContext : DbContext
     {
-        private IConnectionStringsConfiguration _connectionConfiguration;
+        private readonly IConnectionStringsConfiguration _connectionConfiguration;
 
         public DbSet<Translation> Translations { get; set; }
 
-        public ApplicationContext(DbContextOptions<ApplicationContext> options)
+        public ApplicationContext(DbContextOptions options)
             : base(options)
         {
         }

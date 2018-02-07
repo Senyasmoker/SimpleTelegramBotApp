@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
 
-namespace SimpleTelegramBotApp.Common.Autofac
+namespace SimpleTelegramBotApp.Autofac
 {
     public static class AutofacExtensions
     {

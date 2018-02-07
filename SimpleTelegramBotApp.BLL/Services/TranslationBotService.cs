@@ -1,22 +1,21 @@
-﻿using SimpleTelegramBotApp.BLL.Configuration;
-using SimpleTelegramBotApp.BLL.Interfaces;
-using SimpleTelegramBotApp.DAL.EF;
-using SimpleTelegramBotApp.DAL.Entities;
-using System;
-using System.Diagnostics;
+﻿using System;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using SimpleTelegramBotApp.BLL.Configuration;
+using SimpleTelegramBotApp.BLL.Interfaces;
+using SimpleTelegramBotApp.DAL.Entities;
+using SimpleTelegramBotApp.DAL.Interfaces;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace SimpleTelegramBotApp.BLL
+namespace SimpleTelegramBotApp.BLL.Services
 {
     public class TranslationBotService : ITranslationBotService
     {
         private ITelegramBotClient _client;
-        private IBotConfiguration _botConfiguration;
+        private readonly IBotConfiguration _botConfiguration;
 
         private IUnitOfWork UnitOfWork { get; }
         private ITranslationService TranslationService { get; }
@@ -47,14 +46,14 @@ namespace SimpleTelegramBotApp.BLL
             }
 
             _client = new TelegramBotClient(_botConfiguration.Key);
-            var hook = string.Concat(_botConfiguration.Url, "/api/message/update");
+            var hook = string.Concat(_botConfiguration.Url, _botConfiguration.UpdateBaseApiPath);
             await _client.SetWebhookAsync(hook);
         }
 
         private async Task<string> GetTranslationAsync(string text, string lang)
         {
             var separators = new[] { '.', '!', '?', ';' };
-            string[] parts = Regex.Split(text, $@"(?<=[{string.Join("", separators)}])");
+            var parts = Regex.Split(text, $@"(?<=[{string.Join("", separators)}])");
 
             var sb = new StringBuilder();
             foreach (var part in parts)
@@ -62,7 +61,7 @@ namespace SimpleTelegramBotApp.BLL
                 if (string.IsNullOrWhiteSpace(part))
                     continue;
 
-                if (!separators.Any(s => s.ToString() == part))
+                if (separators.All(s => s.ToString() != part))
                 {
                     var translatePart = await TranslatePartAsync(part, lang);
                     sb.Append(translatePart);
@@ -78,10 +77,10 @@ namespace SimpleTelegramBotApp.BLL
 
         private async Task<string> TranslatePartAsync(string text, string lang)
         {
-            string translated = string.Empty;
+            var translated = string.Empty;
 
             var repTranslations = UnitOfWork.TranslationsRepository.Get(t =>
-                t.SourceText.IndexOf(text, 0, StringComparison.OrdinalIgnoreCase) != -1);
+                t.SourceText.IndexOf(text, 0, StringComparison.OrdinalIgnoreCase) != -1).ToList();
             if (repTranslations.Any())
             {
                 var translation = repTranslations.FirstOrDefault();
@@ -92,7 +91,7 @@ namespace SimpleTelegramBotApp.BLL
                 var translateResult = await TranslationService.Translate(text, lang);
                 var fromToResult = translateResult.Lang.Split('-');
 
-                if (translateResult?.Text.Any() != null)
+                if (translateResult.Text.Any())
                 {
                     translated = translateResult.Text.FirstOrDefault();
                     UnitOfWork.TranslationsRepository.Create(new Translation

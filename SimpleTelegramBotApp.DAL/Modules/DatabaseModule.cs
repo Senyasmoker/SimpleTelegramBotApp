@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using SimpleTelegramBotApp.DAL.EF;
+using SimpleTelegramBotApp.DAL.Interfaces;
 
 namespace SimpleTelegramBotApp.DAL.Modules
 {

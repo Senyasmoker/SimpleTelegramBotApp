@@ -1,7 +1,6 @@
 ﻿using SimpleTelegramBotApp.DAL.Entities;
-using SimpleTelegramBotApp.DAL.Interfaces;
 
-namespace SimpleTelegramBotApp.DAL.EF
+namespace SimpleTelegramBotApp.DAL.Interfaces
 {
     public interface IUnitOfWork
     {

@@ -8,8 +8,8 @@ namespace SimpleTelegramBotApp.DAL.EF
 {
     public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        private DbContext _context;
-        private DbSet<TEntity> _dbSet;
+        private readonly DbContext _context;
+        private readonly DbSet<TEntity> _dbSet;
 
         public EFGenericRepository(DbContext context)
         {
@@ -25,19 +25,6 @@ namespace SimpleTelegramBotApp.DAL.EF
         public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
         {
             return _dbSet.AsNoTracking().Where(predicate).ToList();
-        }
-
-        public IEnumerable<TEntity> Get<TKey>(Func<TEntity, TKey> orderBy, bool isAsc = true, Func<TEntity, bool> predicate = null)
-        {
-            IQueryable<TEntity> query = _dbSet;
-
-            if (predicate != null)
-            {
-                query = query.Where(predicate).AsQueryable();
-            }
-            query = isAsc ? query.OrderBy(orderBy).AsQueryable() : query.OrderByDescending(orderBy).AsQueryable();
-
-            return query.AsNoTracking().ToList();
         }
 
         public TEntity FindById(int id)
@@ -74,17 +61,17 @@ namespace SimpleTelegramBotApp.DAL.EF
             _context.SaveChanges();
         }
 
-        private bool disposed = false;
+        private bool _disposed = false;
 
-        public virtual void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!this._disposed)
             {
                 if (disposing)
                 {
                     _context.Dispose();
                 }
-                this.disposed = true;
+                this._disposed = true;
             }
         }
 

@@ -9,7 +9,7 @@ using SimpleTelegramBotApp.BLL.Configuration;
 using SimpleTelegramBotApp.BLL.DTOs;
 using SimpleTelegramBotApp.BLL.Interfaces;
 
-namespace DiplomaManager.BLL.Services
+namespace SimpleTelegramBotApp.BLL.Services
 {
     public class TranslationService : ITranslationService
     {

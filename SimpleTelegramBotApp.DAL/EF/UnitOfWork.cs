@@ -8,7 +8,7 @@ namespace SimpleTelegramBotApp.DAL.EF
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private ApplicationContext _db;
+        private readonly ApplicationContext _db;
         private IGenericRepository<Translation> _translationsRepository;
 
         public UnitOfWork(IConnectionStringsConfiguration connectionStringsConfiguration)
@@ -17,27 +17,20 @@ namespace SimpleTelegramBotApp.DAL.EF
             _db.Database.EnsureCreated();
         }
 
-        public IGenericRepository<Translation> TranslationsRepository
-        {
-            get
-            {
-                if (_translationsRepository == null)
-                    _translationsRepository = new EFGenericRepository<Translation>(_db);
-                return _translationsRepository;
-            }
-        }
+        public IGenericRepository<Translation> TranslationsRepository => 
+            _translationsRepository ?? (_translationsRepository = new EFGenericRepository<Translation>(_db));
 
-        private bool disposed = false;
+        private bool _disposed = false;
 
-        public virtual void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!this._disposed)
             {
                 if (disposing)
                 {
                     _db.Dispose();
                 }
-                this.disposed = true;
+                this._disposed = true;
             }
         }
 

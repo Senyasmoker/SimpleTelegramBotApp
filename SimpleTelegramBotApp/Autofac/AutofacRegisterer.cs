@@ -6,7 +6,7 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace SimpleTelegramBotApp.Common.Autofac
+namespace SimpleTelegramBotApp.Autofac
 {
     internal class AutofacRegisterer
     {

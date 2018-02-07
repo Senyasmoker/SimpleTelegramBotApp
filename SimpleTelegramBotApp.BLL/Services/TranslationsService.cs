@@ -4,12 +4,13 @@ using SimpleTelegramBotApp.BLL.Interfaces;
 using SimpleTelegramBotApp.DAL.EF;
 using SimpleTelegramBotApp.DAL.Entities;
 using System.Collections.Generic;
+using SimpleTelegramBotApp.DAL.Interfaces;
 
 namespace SimpleTelegramBotApp.BLL.Services
 {
     public class TranslationsService : ICrudService<TranslationDto>
     {
-        private IUnitOfWork _db;
+        private readonly IUnitOfWork _db;
 
         public TranslationsService(IUnitOfWork db)
         {
